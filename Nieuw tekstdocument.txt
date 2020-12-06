@@ -1,0 +1,6 @@
+Maak een portfolio website
+- Je kan niet normaal scrollen
+- Is een landing page
+- Animaties
+- filmgrain
+- Custom cursor(lens effect)
