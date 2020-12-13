@@ -1,72 +1,72 @@
-/* Functies om de favicon en title te veranderen*/
-var vis = function(){
-  var stateKey, eventKey, keys = {
-    hidden: "visibilitychange",
-    webkitHidden: "webkitvisibilitychange",
-    mozHidden: "mozvisibilitychange",
-    msHidden: "msvisibilitychange"
-  };
-  for (stateKey in keys) {
-    if (stateKey in document) {
-      eventKey = keys[stateKey];
-      break;
+var mijnPaginas = ["me", "do", "work", "contact"];
+var currentPage = mijnPaginas[pageNumber];
+var pageNumber = 0;
+
+window.addEventListener('wheel', scrollLock);
+
+var called = 0;
+var timeout;
+
+function scrollLock(event) {
+  if (called == 0) {
+    whenScroll(event);
+    called = 1;
+    setTimeout(function() {
+      called = 0;
+    }, 3000);
+  }
+}
+
+function whenScroll(event) {
+  if (event.deltaY < 0) {
+    pageNumber--;
+    if (pageNumber == 2) {
+      gotToPageWork();
+    }else if (pageNumber == 1) {
+      gotToPageDo();
+    }else if (pageNumber == 0) {
+      gotToPageMe();
+    }else if (pageNumber == -1) {
+      pageNumber = 0;
+    }
+  }else if (event.deltaY > 0) {
+    pageNumber++;
+    if (pageNumber == 1) {
+      gotToPageDo();
+    }else if (pageNumber == 2){
+      gotToPageWork();
+    }else if (pageNumber == 3){
+      gotToPageContact();
+    }else if (pageNumber == 4) {
+      pageNumber = 3;
     }
   }
-  return function(c) {
-    if (c) document.addEventListener(eventKey, c);
-    return !document[stateKey];
+}
+
+window.addEventListener('resize', updateWindow);
+
+
+
+function updateWindow() {
+  var historyWindow = [];
+  historyWindow.push(window.outerHeight);
+  if (historyWindow[historyWindow.length - 2] != window.outerHeight) {
+    if (pageNumber == 0) {
+      gotToPageMe();
+    }else if (pageNumber == 1) {
+      gotToPageDo();
+    }else if (pageNumber == 2) {
+      gotToPageWork();
+    }else if (pageNumber == 3){
+      gotToPageContact();
+    }
   }
-}();
-
-var visible = vis();
-var titletimeout;
-
-vis(function(){
-
-  if (vis()) {
-    document.title = 'Well... Hello, handsome!';
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/svg';
-    link.rel = 'shortcut icon';
-    link.href = 'assets/favicon.svg';
-    document.getElementsByTagName('head')[0].appendChild(link);
-    clearTimeout(titletimeout);
-    titletimeout = setTimeout(function(){
-      document.title = 'Glad you are here.';
-      setTimeout(function(){
-        document.title = 'I am Christiaan Zandbergen';
-      }, 2000);
-    }, 2000);
-
-  }else {
-    var questions = ["Where are you going?", "Comeback! I wasn't done yet!", "See you later alligator!", "Hey! You are missing something out.", "Okay... bye then?", "See you soon, racoon!", "It has been emotional, bye!", "Bye bye, butterfly!", "Peace out!", "Catch you on the rebound!", "Hasta la vista, baby!", "I'll be back!", "Until next time!", "Next time, bring more cookies!", "See you on the internet!"]
-    document.title = questions[Math.floor((Math.random() * questions.length))];
-
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/svg';
-    link.rel = 'shortcut icon';
-    link.href = 'assets/favicon_blur.svg';
-    document.getElementsByTagName('head')[0].appendChild(link);
-    clearTimeout(titletimeout);
-    titletimeout = setTimeout(function(){
-      document.title = 'I am Christiaan Zandbergen';
-    }, 5000);
-
-  }
-});
-
-/*Einde Functies om de favicon en title te veranderen*/
-
-
-
-
-
+}
 
 var link_to = document.getElementsByClassName("link_to");
 
 function getHref(e) {
   var hrefLocation = e.toElement.dataset.hrefloc;
-
   if (hrefLocation == "me") {
     gotToPageMe();
   }else if (hrefLocation == "do") {
@@ -76,8 +76,15 @@ function getHref(e) {
   }else if (hrefLocation == "contact") {
     gotToPageContact();
   }
-
 }
+
+function removeMainClasses() {
+  document.body.classList.remove("mePageClassBody");
+  document.body.classList.remove("doPageClassBody");
+  document.body.classList.remove("workPageClassBody");
+  document.body.classList.remove("contactPageClassBody");
+}
+
 
 for (var i = 0; i < link_to.length; i++) {
   link_to[i].addEventListener('click', getHref, false);
@@ -111,6 +118,9 @@ var mePageClass = document.getElementsByClassName("mePageClass");
 gotToPageMe();
 
 function gotToPageMe() {
+  removeMainClasses();
+  document.body.classList.add("mePageClassBody");
+  pageNumber = 0;
   scrollTo("me");
   pageLoadAnim();
   removeEveryMeClass();
@@ -138,6 +148,9 @@ function removeEveryMeClass() {
 }
 
 function gotToPageDo() {
+  removeMainClasses();
+  document.body.classList.add("doPageClassBody");
+  pageNumber = 1;
   scrollTo("do");
   pageLoadAnim();
   removeEveryMeClass();
@@ -154,11 +167,17 @@ function gotToPageDo() {
 }
 
 function gotToPageWork() {
+  removeMainClasses();
+  document.body.classList.add("workPageClassBody");
+  pageNumber = 2;
   scrollTo("work");
   pageLoadAnim();
 }
 
 function gotToPageContact() {
+  removeMainClasses();
+  document.body.classList.add("contactPageClassBody");
+  pageNumber = 3;
   scrollTo("contact");
   pageLoadAnim();
 }
@@ -226,6 +245,8 @@ function workCardHoveraAnimOut(e) {
   e.fromElement.children[2].currentTime = 0;
 }
 
+
+
 var mySwiper = new Swiper('.swiper-container', {
   direction: 'horizontal',
   slidesPerView: 1.6,
@@ -235,3 +256,58 @@ var mySwiper = new Swiper('.swiper-container', {
     prevEl: '.swiper-prev',
   },
 })
+
+/* Functies om de favicon en title te veranderen*/
+var vis = function(){
+  var stateKey, eventKey, keys = {
+    hidden: "visibilitychange",
+    webkitHidden: "webkitvisibilitychange",
+    mozHidden: "mozvisibilitychange",
+    msHidden: "msvisibilitychange"
+  };
+  for (stateKey in keys) {
+    if (stateKey in document) {
+      eventKey = keys[stateKey];
+      break;
+    }
+  }
+  return function(c) {
+    if (c) document.addEventListener(eventKey, c);
+    return !document[stateKey];
+  }
+}();
+
+var visible = vis();
+var titletimeout;
+
+vis(function(){
+  if (vis()) {
+    document.title = 'Well... Hello, handsome!';
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/svg';
+    link.rel = 'shortcut icon';
+    link.href = 'assets/favicon.svg';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    clearTimeout(titletimeout);
+    titletimeout = setTimeout(function(){
+      document.title = 'Glad you are here.';
+      setTimeout(function(){
+        document.title = 'I am Christiaan Zandbergen';
+      }, 2000);
+    }, 2000);
+  }else {
+    var questions = ["Where are you going?", "Comeback! I wasn't done yet!", "See you later alligator!", "Hey! You are missing something out.", "Okay... bye then?", "See you soon, racoon!", "It has been emotional, bye!", "Bye bye, butterfly!", "Peace out!", "Catch you on the rebound!", "Hasta la vista, baby!", "I'll be back!", "Until next time!", "Next time, bring more cookies!", "See you on the internet!"]
+    document.title = questions[Math.floor((Math.random() * questions.length))];
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/svg';
+    link.rel = 'shortcut icon';
+    link.href = 'assets/favicon_blur.svg';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    clearTimeout(titletimeout);
+    titletimeout = setTimeout(function(){
+      document.title = 'I am Christiaan Zandbergen';
+    }, 5000);
+  }
+});
+
+/*Einde Functies om de favicon en title te veranderen*/
