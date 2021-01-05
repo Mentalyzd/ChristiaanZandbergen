@@ -1,6 +1,23 @@
 var url = window.location;
-console.log(url.host);
-console.log(url.pathname);
+
+if(url.hash === "#do") {
+  setTimeout(function() {
+    gotToPageDo();
+  }, 100);
+}
+
+if(url.hash === "#work") {
+  setTimeout(function() {
+    gotToPageWork();
+  }, 100);
+}
+
+if(url.hash === "#contact") {
+  setTimeout(function() {
+    gotToPageContact();
+  }, 100);
+}
+
 
 var mijnPaginas = ["me", "do", "work", "contact"];
 var currentPage = mijnPaginas[pageNumber];
@@ -12,13 +29,32 @@ var called = 0;
 var timeout;
 
 function scrollLock(event) {
-  if (called == 0) {
-    whenScroll(event);
-    called = 1;
-    setTimeout(function() {
-      called = 0;
-    }, 3000);
+  if (pageNumber == 0) {
+    if (called == 0) {
+      whenScroll(event);
+      called = 1;
+      setTimeout(function() {
+        called = 0;
+      }, 500);
+    }
+  }else if (pageNumber == 3) {
+    if (called == 0) {
+      whenScroll(event);
+      called = 1;
+      setTimeout(function() {
+        called = 0;
+      }, 500);
+    }
+  }else {
+    if (called == 0) {
+      whenScroll(event);
+      called = 1;
+      setTimeout(function() {
+        called = 0;
+      }, 3000);
+    }
   }
+
 }
 
 function whenScroll(event) {
