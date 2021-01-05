@@ -1,3 +1,7 @@
+var url = window.location;
+console.log(url.host);
+console.log(url.pathname);
+
 var mijnPaginas = ["me", "do", "work", "contact"];
 var currentPage = mijnPaginas[pageNumber];
 var pageNumber = 0;
