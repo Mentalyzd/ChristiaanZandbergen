@@ -677,7 +677,12 @@ div > .maincontainer{
 .maincontainer section:nth-of-type(4){
   width: 100%;
   height: calc(100vh);
-  background: #2F4858;
+  //background: #2F4858;
+  //background: #3B413C;
+  //background: #150811;
+  background: #170F11;
+
+
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
