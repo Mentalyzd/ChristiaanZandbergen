@@ -67,6 +67,8 @@ body > svg{
   transform-origin: center;
 }
 
+
+
 .cursor_effect div:nth-of-type(1){
   position: absolute;
   width: 0.25em;
@@ -90,6 +92,38 @@ body > svg{
 
 .cursor_effect div:nth-of-type(3){
   display: none;
+}
+
+.cursorSwiperEffect::after{
+  content: "sleep naar links of rechts";
+  position: absolute;
+  white-space: nowrap;
+  font-size: 1em;
+  color: #fff;
+  left: 3.5em;
+  opacity: 0;
+  animation: hulptekst 3s cubic-bezier(.8,-.5,.2,1.4) forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes hulptekst {
+  0%{
+    opacity: 0;
+    transform: translateX(-10px);
+
+  }
+  20%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  80%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateX(-10px);
+  }
 }
 
 .cursorHoverEffect div:nth-of-type(2){
@@ -423,12 +457,13 @@ div > .maincontainer{
   font-weight: 600;
   font-size: 0.8em;
   color: #fff;
+  animation-delay: 1.2s;
 }
 
 .maincontainer section:nth-of-type(2) div:nth-of-type(1) h1{
   font-size: 2em;
   color: #fff;
-  animation-delay: 1.2s;
+  animation-delay: 1.4s;
 }
 
 .maincontainer section:nth-of-type(2) > div:nth-of-type(1) > div{
@@ -441,7 +476,16 @@ div > .maincontainer{
 }
 
 .maincontainer section:nth-of-type(2) > div:nth-of-type(1) div div:nth-of-type(1){
-  grid-column: 1 / 2
+  grid-column: 1 / 2;
+  animation-delay: 1.6s;
+}
+
+.maincontainer section:nth-of-type(2) > div:nth-of-type(1) div div:nth-of-type(2){
+  animation-delay: 1.6s;
+}
+
+.maincontainer section:nth-of-type(2) > div:nth-of-type(1) div div:nth-of-type(3){
+  animation-delay: 1.8s;
 }
 
 .maincontainer section:nth-of-type(2) > div:nth-of-type(1) div > h3{
@@ -482,22 +526,25 @@ div > .maincontainer{
   font-weight: 600;
   font-size: 0.8em;
   color: #fff;
+  animation-delay: 1.2s;
 }
 
 .maincontainer section:nth-of-type(3) div:nth-of-type(1) h1{
   font-size: 2em;
   color: #fff;
-  animation-delay: 1.2s;
+  animation-delay: 1.4s;
 }
 
 .swiper-controls{
   margin-top: 2em;
+  animation-delay: 1.8s !important;
 }
 
 .swiper-container{
   margin-top: 2em;
   height: 100%;
   width: 100%;
+  animation-delay: 1.6s !important;
 }
 
 .swiper-wrapper{
@@ -650,7 +697,7 @@ div > .maincontainer{
 .maincontainer section:nth-of-type(4) > div:nth-of-type(1) h1{
   font-size: 2em;
   //opacity: 0;
-  animation-delay: 1.2s;
+  animation-delay: 1.4s;
 }
 
 .maincontainer section:nth-of-type(4) > div:nth-of-type(1) h4{
@@ -659,14 +706,15 @@ div > .maincontainer{
   margin-bottom: 2em;
   font-weight: 600;
   font-size: 0.8em;
+  animation-delay: 1.2s;
 }
 
 .maincontainer section:nth-of-type(4) > div:nth-of-type(1) p{
-  width: 24em;
+  width: 26em;
   margin-top: 2em;
   line-height: 2em;
   //opacity: 0;
-  animation-delay: 1.4s;
+  animation-delay: 1.6s;
 }
 
 .maincontainer section:nth-of-type(4) > div:nth-of-type(1) a{
@@ -683,7 +731,7 @@ div > .maincontainer{
   font-size: 0.8em;
   cursor: pointer;
   outline: none;
-  animation-delay: 1.6s;
+  animation-delay: 1.8s;
 }
 
 .maincontainer section:nth-of-type(4) > div:nth-of-type(2){
@@ -693,6 +741,7 @@ div > .maincontainer{
   display: flex;
   align-items: center;
   justify-content: center;
+  animation-delay: 1.4s;
 }
 
 .maincontainer section:nth-of-type(4) > div:nth-of-type(2) img{
@@ -703,14 +752,6 @@ div > .maincontainer{
 }
 
 .mePageClass{
-}
-
-.mePageLeft{
-
-}
-
-.mePageRight{
-
 }
 
 .mePageAnimationLeft{
@@ -728,6 +769,69 @@ div > .maincontainer{
 }
 
 .mePageAnimationRightOut{
+  animation: fadeLogoInRightOut 0.5s 2s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+
+
+.doPageAnimationLeft{
+  animation: fadeLogoIn 0.5s 1s ease forwards;
+}
+
+.doPageAnimationLeftOut{
+  opacity: 1;
+  animation: fadeLogoOut 0.5s 1s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+.doPageAnimationRight{
+  animation: fadeLogoInRight 0.5s 2s ease forwards;
+}
+
+.doPageAnimationRightOut{
+  animation: fadeLogoInRightOut 0.5s 2s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+
+
+.workPageAnimationLeft{
+  animation: fadeLogoIn 0.5s 1s ease forwards;
+}
+
+.workPageAnimationLeftOut{
+  opacity: 1;
+  animation: fadeLogoOut 0.5s 1s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+.workPageAnimationRight{
+  animation: fadeLogoInRight 0.5s 2s ease forwards;
+}
+
+.workPageAnimationRightOut{
+  animation: fadeLogoInRightOut 0.5s 2s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+
+
+.contactPageAnimationLeft{
+  animation: fadeLogoIn 0.5s 1s ease forwards;
+}
+
+.contactPageAnimationLeftOut{
+  opacity: 1;
+  animation: fadeLogoOut 0.5s 1s ease forwards;
+  animation-delay: 0.5s !important;
+}
+
+.contactPageAnimationRight{
+  animation: fadeLogoInRight 0.5s 2s ease forwards;
+}
+
+.contactPageAnimationRightOut{
   animation: fadeLogoInRightOut 0.5s 2s ease forwards;
   animation-delay: 0.5s !important;
 }

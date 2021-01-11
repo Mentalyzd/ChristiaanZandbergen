@@ -154,16 +154,14 @@ function scrollTo(where) {
 }
 
 var mePageClass = document.getElementsByClassName("mePageClass");
+var doPageClass = document.getElementsByClassName("doPageClass");
+var workPageClass = document.getElementsByClassName("workPageClass");
+var contactPageClass = document.getElementsByClassName("contactPageClass");
 
 gotToPageMe();
 
-function gotToPageMe() {
-  removeMainClasses();
-  document.body.classList.add("mePageClassBody");
-  pageNumber = 0;
-  scrollTo("me");
-  pageLoadAnim();
-  removeEveryMeClass();
+
+function animMeIn() {
   for (var i = 0; i < mePageClass.length; i++) {
     mePageClass[i].style.opacity = "0";
     if (mePageClass[i].classList.contains("mePageLeft")) {
@@ -177,6 +175,150 @@ function gotToPageMe() {
   }
 }
 
+function animMeOut() {
+  for (var i = 0; i < mePageClass.length; i++) {
+    mePageClass[i].style.opacity = "1";
+    if (mePageClass[i].classList.contains("mePageLeft")) {
+      mePageClass[i].offsetWidth;// trigger a DOM reflow
+      mePageClass[i].classList.add("mePageAnimationLeftOut");
+
+    }else{
+      mePageClass[i].offsetWidth;// trigger a DOM reflow
+      mePageClass[i].classList.add("mePageAnimationRightOut");
+    }
+  }
+}
+
+function animDoIn() {
+  for (var i = 0; i < doPageClass.length; i++) {
+    doPageClass[i].style.opacity = "0";
+    if (doPageClass[i].classList.contains("doPageLeft")) {
+      doPageClass[i].offsetWidth;// trigger a DOM reflow
+      doPageClass[i].classList.add("doPageAnimationLeft");
+    }else{
+      doPageClass[i].offsetWidth;// trigger a DOM reflow
+      doPageClass[i].classList.add("doPageAnimationRight");
+    }
+  }
+}
+
+function animDoOut() {
+  for (var i = 0; i < doPageClass.length; i++) {
+    doPageClass[i].style.opacity = "1";
+    if (doPageClass[i].classList.contains("doPageLeft")) {
+      doPageClass[i].offsetWidth;// trigger a DOM reflow
+      doPageClass[i].classList.add("doPageAnimationLeftOut");
+    }else{
+      doPageClass[i].offsetWidth;// trigger a DOM reflow
+      doPageClass[i].classList.add("doPageAnimationRightOut");
+    }
+  }
+}
+
+function animWorkIn() {
+  for (var i = 0; i < workPageClass.length; i++) {
+    workPageClass[i].style.opacity = "0";
+    if (workPageClass[i].classList.contains("workPageLeft")) {
+      workPageClass[i].offsetWidth;// trigger a DOM reflow
+      workPageClass[i].classList.add("workPageAnimationLeft");
+    }else{
+      workPageClass[i].offsetWidth;// trigger a DOM reflow
+      workPageClass[i].classList.add("workPageAnimationRight");
+    }
+  }
+}
+
+function animWorkOut() {
+  for (var i = 0; i < workPageClass.length; i++) {
+    workPageClass[i].style.opacity = "1";
+    if (workPageClass[i].classList.contains("workPageLeft")) {
+      workPageClass[i].offsetWidth;// trigger a DOM reflow
+      workPageClass[i].classList.add("workPageAnimationLeftOut");
+    }else{
+      workPageClass[i].offsetWidth;// trigger a DOM reflow
+      workPageClass[i].classList.add("workPageAnimationRightOut");
+    }
+  }
+}
+
+function animContactIn() {
+  for (var i = 0; i < contactPageClass.length; i++) {
+    contactPageClass[i].style.opacity = "0";
+    if (contactPageClass[i].classList.contains("contactPageLeft")) {
+      contactPageClass[i].offsetWidth;// trigger a DOM reflow
+      contactPageClass[i].classList.add("contactPageAnimationLeft");
+    }else{
+      contactPageClass[i].offsetWidth;// trigger a DOM reflow
+      contactPageClass[i].classList.add("contactPageAnimationRight");
+    }
+  }
+}
+
+function animContactOut() {
+  for (var i = 0; i < contactPageClass.length; i++) {
+    contactPageClass[i].style.opacity = "1";
+    if (contactPageClass[i].classList.contains("contactPageLeft")) {
+      contactPageClass[i].offsetWidth;// trigger a DOM reflow
+      contactPageClass[i].classList.add("contactPageAnimationLeftOut");
+    }else{
+      contactPageClass[i].offsetWidth;// trigger a DOM reflow
+      contactPageClass[i].classList.add("contactPageAnimationRightOut");
+    }
+  }
+}
+
+function gotToPageMe() {
+  removeMainClasses();
+  document.body.classList.add("mePageClassBody");
+  pageNumber = 0;
+  scrollTo("me");
+  pageLoadAnim();
+  removeEveryMeClass();
+  animMeIn();
+  animDoOut();
+  animWorkOut();
+  animContactOut();
+}
+
+function gotToPageDo() {
+  removeMainClasses();
+  document.body.classList.add("doPageClassBody");
+  pageNumber = 1;
+  scrollTo("do");
+  pageLoadAnim();
+  removeEveryDoClass();
+  animMeOut();
+  animDoIn();
+  animWorkOut();
+  animContactOut();
+}
+
+function gotToPageWork() {
+  removeMainClasses();
+  document.body.classList.add("workPageClassBody");
+  pageNumber = 2;
+  scrollTo("work");
+  pageLoadAnim();
+  removeEveryWorkClass();
+  animMeOut();
+  animDoOut();
+  animWorkIn();
+  animContactOut();
+}
+
+function gotToPageContact() {
+  removeMainClasses();
+  document.body.classList.add("contactPageClassBody");
+  pageNumber = 3;
+  scrollTo("contact");
+  pageLoadAnim();
+  removeEveryContactClass();
+  animMeOut();
+  animDoOut();
+  animWorkOut();
+  animContactIn();
+}
+
 function removeEveryMeClass() {
   pageLoadAnim();
   for (var i = 0; i < mePageClass.length; i++) {
@@ -187,42 +329,35 @@ function removeEveryMeClass() {
   }
 }
 
-function gotToPageDo() {
-  removeMainClasses();
-  document.body.classList.add("doPageClassBody");
-  pageNumber = 1;
-  scrollTo("do");
+function removeEveryDoClass() {
   pageLoadAnim();
-  removeEveryMeClass();
-  for (var i = 0; i < mePageClass.length; i++) {
-    mePageClass[i].style.opacity = "1";
-    if (mePageClass[i].classList.contains("mePageLeft")) {
-      mePageClass[i].offsetWidth;// trigger a DOM reflow
-      mePageClass[i].classList.add("mePageAnimationLeftOut");
-    }else{
-      mePageClass[i].offsetWidth;// trigger a DOM reflow
-      mePageClass[i].classList.add("mePageAnimationRightOut");
-    }
+  for (var i = 0; i < doPageClass.length; i++) {
+    doPageClass[i].classList.remove("doPageAnimationLeft");
+    doPageClass[i].classList.remove("doPageAnimationRight");
+    doPageClass[i].classList.remove("doPageAnimationLeftOut");
+    doPageClass[i].classList.remove("doPageAnimationRightOut");
   }
 }
 
-function gotToPageWork() {
-  removeMainClasses();
-  document.body.classList.add("workPageClassBody");
-  pageNumber = 2;
-  scrollTo("work");
+function removeEveryWorkClass() {
   pageLoadAnim();
+  for (var i = 0; i < workPageClass.length; i++) {
+    workPageClass[i].classList.remove("workPageAnimationLeft");
+    workPageClass[i].classList.remove("workPageAnimationRight");
+    workPageClass[i].classList.remove("workPageAnimationLeftOut");
+    workPageClass[i].classList.remove("workPageAnimationRightOut");
+  }
 }
 
-function gotToPageContact() {
-  removeMainClasses();
-  document.body.classList.add("contactPageClassBody");
-  pageNumber = 3;
-  scrollTo("contact");
+function removeEveryContactClass() {
   pageLoadAnim();
+  for (var i = 0; i < contactPageClass.length; i++) {
+    contactPageClass[i].classList.remove("contactPageAnimationLeft");
+    contactPageClass[i].classList.remove("contactPageAnimationRight");
+    contactPageClass[i].classList.remove("contactPageAnimationLeftOut");
+    contactPageClass[i].classList.remove("contactPageAnimationRightOut");
+  }
 }
-
-
 
 
 var mouseCursor = document.getElementById("cursor_effect");
@@ -250,6 +385,23 @@ function cursorHoverAnimIn() {
 function cursorHoverAnimOut() {
   mouseCursor.classList.remove("cursorHoverEffect");
 }
+
+
+
+var swiperContainer = document.getElementById("hulptekst");
+
+swiperContainer.addEventListener('mouseenter', cursorHoverSwiperIn, false);
+swiperContainer.addEventListener('mouseleave', cursorHoverSwiperOut, false);
+
+function cursorHoverSwiperIn() {
+  mouseCursor.classList.add("cursorSwiperEffect");
+}
+
+function cursorHoverSwiperOut() {
+  mouseCursor.classList.remove("cursorSwiperEffect");
+}
+
+
 
 var menuHover = document.getElementById("menuHover");
 var dimOverlay = document.getElementById("dimOverlay");
